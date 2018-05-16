@@ -2,45 +2,55 @@
 //  ViewController.swift
 //  Dicee
 //
-//  Created by Ruurd Pels on 12-05-2018.
-//  Copyright © 2018 Bureau Pels. All rights reserved.
+//  Created by Angela Yu on 25/08/2015.
+//  Copyright (c) 2015 London App Brewery. All rights reserved.
 //
 
 import UIKit
 
+
+var diceArray : Array = [""]
+var firstRandomIndex : Int = 0
+var secondRandomIndex : Int = 0
+
+
 class ViewController: UIViewController {
 
-    let diceImageNames = ["dice1", "dice2", "dice3", "dice4", "dice5", "dice6"]
-    var leftRandomIndex: Int = 0
-    var riteRandomIndex: Int = 0
-
-    @IBOutlet weak var leftDiceImageView: UIImageView!
-    @IBOutlet weak var riteDiceImageView: UIImageView!
+    @IBOutlet weak var firstDiceImageView: UIImageView!
+    
+    @IBOutlet weak var secondDiceImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
+        diceArray = ["dice1", "dice2", "dice3", "dice4", "dice5", "dice6"]
+        
+    }
+
+    
+    
+    @IBAction func rollPressed(_ sender: AnyObject) {
+        
         updateDiceImages()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func rollButtomPressed(_ sender: UIButton) {
-        updateDiceImages()
-    }
-
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        updateDiceImages()
-    }
-
+    
     func updateDiceImages() {
-        leftRandomIndex = Int(arc4random_uniform(6))
-        riteRandomIndex = Int(arc4random_uniform(6))
-
-        leftDiceImageView.image = UIImage(named: diceImageNames[leftRandomIndex])
-        riteDiceImageView.image = UIImage(named: diceImageNames[riteRandomIndex])
+        
+        firstRandomIndex = Int(arc4random_uniform(6))
+        secondRandomIndex = Int(arc4random_uniform(6))
+        
+        firstDiceImageView.image = UIImage(named: diceArray[firstRandomIndex])
+        secondDiceImageView.image = UIImage(named: diceArray[secondRandomIndex])
     }
+    
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            updateDiceImages()
+        }
+    }
+    
+
+
 }
 
